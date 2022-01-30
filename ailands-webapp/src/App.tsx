@@ -3,10 +3,12 @@ import { ThemeProvider, Box } from '@mui/material';
 import theme from 'styling/theme';
 import Home from 'routes/Home';
 
-const CARD_WIDTH = 400;
 function App() {
   return (
-    <Box>
+    <Box style={{
+      height: '100%',
+    }}
+    >
       <ThemeProvider theme={theme}>
         <Home />
       </ThemeProvider>

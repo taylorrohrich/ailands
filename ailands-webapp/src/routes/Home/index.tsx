@@ -1,6 +1,8 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import Preview from 'components/Preview';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 export default function Home() {
   return (
@@ -10,7 +12,11 @@ export default function Home() {
       justifyContent="center"
       sx={{ minHeight: '100%' }}
     >
-      <Preview style={{ flex: 1 }} />
+      <Header />
+      <Box flex={1} display="flex" justifyContent="center" alignItems="center">
+        <Preview />
+      </Box>
+      <Footer />
     </Box>
   );
 }

@@ -61,21 +61,23 @@ function getLandStyle(land: LandEnum) {
 }
 
 interface CardFrontProps {
-  land: LandEnum; cardId: string
+  land: LandEnum; cardId: string, imageURL?: string;
 }
-function CardFront({ land, cardId }: CardFrontProps) {
+function CardFront({ land, cardId, imageURL }: CardFrontProps) {
   const Land = getLandSvg(land);
   const style = getLandStyle(land);
   const landName = land[0].toUpperCase() + land.slice(1);
   return (
     <Box id={cardId} className="card-svg" style={{ position: 'relative', width: '100%', height: '100%' }}>
-      <img
-        alt="land-art"
-        style={{
-          width: `${IMAGE_WIDTH_SCALE}%`, height: `${IMAGE_HEIGHT_SCALE}%`, left: `${IMAGE_X_SCALE}%`, top: `${IMAGE_Y_SCALE}%`, position: 'absolute',
-        }}
-        src="https://shirtcoin.blob.core.windows.net/blobs/marble-texture.jpeg"
-      />
+      {imageURL && (
+        <img
+          alt="land-art"
+          style={{
+            width: `${IMAGE_WIDTH_SCALE}%`, height: `${IMAGE_HEIGHT_SCALE}%`, left: `${IMAGE_X_SCALE}%`, top: `${IMAGE_Y_SCALE}%`, position: 'absolute',
+          }}
+          src={imageURL}
+        />
+      )}
       <svg
         viewBox={`0 0 ${SVG_VIEW_WIDTH} ${SVG_VIEW_HEIGHT}`}
         style={{ width: '100%', height: '100%', fontFamily: 'EB Garamond' }}
@@ -127,6 +129,10 @@ function CardFront({ land, cardId }: CardFrontProps) {
     </Box>
   );
 }
+
+CardFront.defaultProps = {
+  imageURL: undefined,
+};
 
 function CardBack() {
   const scale = 75;
@@ -180,15 +186,19 @@ function CardBack() {
 interface CardProps {
   width: number;
   land: LandEnum;
+  imageURL?: string;
   style?: React.CSSProperties
+  isFlipped?: boolean;
 }
 
-function Card({ width, land, style }: CardProps) {
+function Card({
+  width, land, style, imageURL, isFlipped,
+}: CardProps) {
   const [isSelected, setIsSelected] = useState(false);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [cardIsFlipped, setCardIsFlipped] = useState(false);
   const cardId = useMemo(() => `card-${generateUID()}`, []);
   const height = CARD_HEIGHT_PX / (CARD_WIDTH_PX / width);
-  const flippedClass = isFlipped ? 'flip-card-inner card-flipped' : 'flip-card-inner';
+  const flippedClass = (isFlipped || cardIsFlipped) ? 'flip-card-inner card-flipped' : 'flip-card-inner';
   const selectedClass = isSelected ? 'card-download card-download-selected' : 'card-download';
 
   return (
@@ -197,12 +207,12 @@ function Card({ width, land, style }: CardProps) {
         className="flip-card"
         role="button"
         tabIndex={0}
-        onClick={(e) => setIsFlipped(!isFlipped)}
+        onClick={(e) => setCardIsFlipped(!cardIsFlipped)}
         style={{ cursor: 'pointer' }}
       >
         <Box className={flippedClass} sx={{ width, height }}>
           <Box className="flip-card-front">
-            <CardFront cardId={cardId} land={land} />
+            <CardFront cardId={cardId} land={land} imageURL={imageURL} />
             <Box
               role="button"
               onClick={(e) => e.stopPropagation()}
@@ -229,5 +239,7 @@ function Card({ width, land, style }: CardProps) {
 
 Card.defaultProps = {
   style: undefined,
+  imageURL: undefined,
+  isFlipped: undefined,
 };
 export default Card;
