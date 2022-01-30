@@ -3,7 +3,7 @@ import {
   swamp, mountain, island, plains, forest, cardBack,
 } from 'styling/constants';
 import { Box } from '@mui/material';
-import generateUID from 'utils';
+import { generateUID } from 'utils';
 import Download from './Download';
 import { LandEnum } from './types';
 import Island from './Island';
@@ -180,17 +180,19 @@ function CardBack() {
 interface CardProps {
   width: number;
   land: LandEnum;
+  style?: React.CSSProperties
 }
 
-function Card({ width, land }: CardProps) {
+function Card({ width, land, style }: CardProps) {
   const [isSelected, setIsSelected] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const cardId = useMemo(() => `card-${generateUID()}`, []);
   const height = CARD_HEIGHT_PX / (CARD_WIDTH_PX / width);
   const flippedClass = isFlipped ? 'flip-card-inner card-flipped' : 'flip-card-inner';
   const selectedClass = isSelected ? 'card-download card-download-selected' : 'card-download';
+
   return (
-    <Box sx={{ zIndex: isSelected ? 2 : 1 }} className="flip-card-container" onMouseEnter={() => setIsSelected(true)} onMouseLeave={() => setIsSelected(false)}>
+    <Box sx={{ zIndex: isSelected ? 2 : 1, ...(style ?? {}) }} className="flip-card-container" onMouseEnter={() => setIsSelected(true)} onMouseLeave={() => setIsSelected(false)}>
       <Box
         className="flip-card"
         role="button"
@@ -209,7 +211,7 @@ function Card({ width, land }: CardProps) {
               alignItems="center"
               className={selectedClass}
               sx={{
-                position: 'absolute', bottom: 0, backgroundColor: '#303030', height: '20%', width: '100%', color: '#ffffff', cursor: 'auto',
+                position: 'absolute', bottom: 0, backgroundColor: '#303030', height: height < 300 ? '100%' : '30%', width: '100%', color: '#ffffff', cursor: 'auto',
               }}
             >
               <Download cardId={cardId} />
@@ -225,4 +227,7 @@ function Card({ width, land }: CardProps) {
   );
 }
 
+Card.defaultProps = {
+  style: undefined,
+};
 export default Card;

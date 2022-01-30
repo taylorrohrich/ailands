@@ -3,7 +3,8 @@
   transition: transform 0.3s;
 }
 .flip-card-container:hover{
-  transform:scale(105%);
+  
+  transform:scale(110%);
 }
 .flip-card {
   perspective: 1000px; /* Remove this if you don't want the 3D effect */
