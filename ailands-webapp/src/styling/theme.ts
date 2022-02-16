@@ -5,6 +5,8 @@ import {
 
 interface LandTheme {
   primary: string
+  secondary: string;
+  tertiary: string;
 }
 interface LandThemes {
   plains: LandTheme;
