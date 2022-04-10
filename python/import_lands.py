@@ -1,7 +1,7 @@
 import requests
 import time
 import urllib
-land = "mountain"
+land = "island"
 URL = f"https://api.scryfall.com/cards/search?q=type%3A{land}+unique%3Aart"
 cropImages = []
 while URL is not None:

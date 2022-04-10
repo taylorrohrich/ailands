@@ -1,0 +1,1 @@
+az storage blob directory upload -c cardart --account-name ailandsblob -s "blob" -d "/" --recursive

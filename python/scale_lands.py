@@ -2,7 +2,7 @@
 # Importing Image class from PIL module
 from PIL import Image
 import os
-land = "swamp"
+land = "island"
 # def make_square(im, min_size=256):
 #     x, y = im.size
 #     size = max(min_size, x, y)
