@@ -10,7 +10,7 @@ import {
   CARD_HEIGHT_IN,
 } from './constants';
 
-export function screenshotCard(elementId: string, mode: DownloadMode) {
+export function screenshotCard(elementId: string, mode: DownloadMode, imageURL?: string) {
   if (mode === 'card-png' || mode === 'card-pdf') {
     const input = document.getElementById(elementId);
     if (input != null) {
@@ -38,12 +38,26 @@ export function screenshotCard(elementId: string, mode: DownloadMode) {
             a.href = imgData.replace('image/png', 'image/octet-stream');
             a.download = 'card.png';
             a.click();
+            a.remove();
           }
         });
       screenshotElement.remove();
     }
-  } else if (mode === 'art') {
-    // TODO
+  } else if (mode === 'art' && imageURL != null) {
+    fetch(imageURL, {
+      method: 'GET',
+      headers: {},
+    })
+      .then((response) => {
+        response.arrayBuffer().then((buffer) => {
+          const url = window.URL.createObjectURL(new Blob([buffer]));
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'art.png';
+          a.click();
+          a.remove();
+        });
+      });
   }
 }
 

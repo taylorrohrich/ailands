@@ -1,14 +1,20 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
-import Logo from 'resources/logo.svg';
+import { Box, Typography, Link } from '@mui/material';
 
 export default function Header() {
-  return <Box />;
   return (
-    <Box display="flex" alignItems="center" sx={{ padding: '20px' }}>
-      <img alt="logo" src={Logo} style={{ width: '50px', height: '50px', marginRight: '20px' }} />
-      {/*
-      <Typography fontWeight="bold" fontSize="24px">AI Lands</Typography> */}
+    <Box sx={{ fontFamily: 'EB Garamond' }} p={4}>
+      <Typography fontSize="26px" fontFamily="EB Garamond"> AI Lands </Typography>
+      <Typography fontFamily="EB Garamond" fontSize="22px">
+        Generating art using
+        a
+        {' '}
+        <Link underline="none" target="_blank" rel="noopener" href="https://github.com/tensorflow/gan/tree/master/tensorflow_gan/examples/">
+          GAN network
+        </Link>
+        {' '}
+        trained on Magic the Gathering lands.
+      </Typography>
     </Box>
   );
 }

@@ -224,7 +224,7 @@ function Card({
                 position: 'absolute', bottom: 0, backgroundColor: '#303030', height: height < 300 ? '100%' : '30%', width: '100%', color: '#ffffff', cursor: 'auto',
               }}
             >
-              <Download cardId={cardId} />
+              <Download cardId={cardId} imageURL={imageURL} />
             </Box>
           </Box>
           <Box className="flip-card-back">

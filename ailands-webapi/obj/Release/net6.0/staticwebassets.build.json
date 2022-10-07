@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "tw9cgJGU0KLucA6PuhzOAY7fuNheYyHstAriA104hfU=",
+  "Source": "ailands-webapi",
+  "BasePath": "_content/ailands-webapi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

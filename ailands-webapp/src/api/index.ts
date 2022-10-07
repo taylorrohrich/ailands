@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_BASE = 'https://localhost:7025';
+export const API_BASE = 'https://ailandswebapi.azurewebsites.net';
 
 export default {
   random: {

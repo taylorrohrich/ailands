@@ -44,12 +44,12 @@ export default function Preview({ style }: PreviewProps) {
       setLoading('all');
       Promise.all(colors.map((c) => api.random.query(c))).then((values) => {
         const newImages = colors.reduce((acc, c, i) => ({ ...acc, [c]: values[i] }), {});
-        setImages(newImages);
+        setTimeout(() => setImages(newImages), 300);
       }).finally(finishLoading);
     } else {
       setLoading(color);
       api.random.query(color).then((url: string) => {
-        setImages({ ...images, [color]: url });
+        setTimeout(() => setImages({ ...images, [color]: url }), 300);
       }).finally(finishLoading);
     }
   }, [images, setImages]);
@@ -62,7 +62,7 @@ export default function Preview({ style }: PreviewProps) {
           const land = colorLands[color];
           const colorIsLoading = loading === color || loading === 'all';
           return (
-            <Box display="flex" flexDirection="column" alignItems="center">
+            <Box key={`card-${color}`} display="flex" flexDirection="column" alignItems="center">
               <Card isFlipped={colorIsLoading} imageURL={images[color]} land={land} style={{ margin: '16px' }} width={cardWidth} />
               <IconButton
                 onClick={() => queryImage(color)}
