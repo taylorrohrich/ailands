@@ -10,7 +10,8 @@ interface DownloadProps {
 
 const DOWNLOAD_OPTIONS = [{ label: 'card', fileType: '.png', mode: 'card-png' }, { label: 'card', fileType: '.pdf', mode: 'card-pdf' }, { label: 'art', fileType: '.png', mode: 'art' }];
 export default function Download({ cardId, imageURL }: DownloadProps) {
-  const downloadCard = useCallback((mode) => screenshotCard(cardId, mode, imageURL), []);
+  const downloadCard = useCallback((mode) => screenshotCard(cardId, mode, imageURL), [cardId,
+    imageURL]);
   return (
     <Box display="flex" flexDirection="column" justifyContent="center" alignItems="center">
       <Box>
